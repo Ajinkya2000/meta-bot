@@ -1,14 +1,21 @@
 import { Routes, Route } from "react-router-dom";
+import Container from "@mui/material/Container";
 
-import Button from "@mui/material/Button";
+// Components
+import Home from "./Home";
+import AddGoal from "./AddGoal";
 
-// Add a select for first time and then store it in local storage.
+// CSS
+import "./App.css";
 
 const App = () => {
   return (
-    <div className="">
-      <Button variant="contained">Hello World</Button>
-    </div>
+    <Container maxWidth="lg">
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/add-goal" element={<AddGoal />} />
+      </Routes>
+    </Container>
   );
 };
 

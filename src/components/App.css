@@ -1,0 +1,11 @@
+/* Utilities */
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Home */
+.home {
+  height: 100vh;
+}
