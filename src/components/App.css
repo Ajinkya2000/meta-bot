@@ -9,3 +9,7 @@
 .home {
   height: 100vh;
 }
+
+.name-form {
+  flex-direction: column;
+}
