@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import Container from "@mui/material/Container";
+import Container from "react-bootstrap/Container";
 
 // Components
 import Home from "./Home";
@@ -10,7 +10,7 @@ import "./App.css";
 
 const App = () => {
   return (
-    <Container maxWidth="lg">
+    <Container>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/add-goal" element={<AddGoal />} />

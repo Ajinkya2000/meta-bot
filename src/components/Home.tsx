@@ -1,92 +1,81 @@
 import { useState, FormEvent, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-// Material UI
-import OutlinedInput from "@mui/material/OutlinedInput";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import FormHelperText from "@mui/material/FormHelperText";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
-import Button from "@mui/material/Button";
-import SendIcon from "@mui/icons-material/Send";
+// React Bootstrap
+import Container from "react-bootstrap/Container";
+import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 
-// Add a select for first time and then store it in local storage.
+// React Select
+import Select from "react-select";
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
+// Types
+import { nameOptionType } from "../types/name-option-type";
 
-const names = ["Ajinkya", "Sushant", "Kashish", "Garvita"];
+const names: nameOptionType[] = [
+  { value: "ajinkya", label: "ajinkya" },
+  { value: "sushant", label: "sushant" },
+  { value: "kashish", label: "kashish" },
+  { value: "garvita", label: "garvita" },
+];
 
 const Home = () => {
-  const [personName, setPersonName] = useState<string>("");
   const [hasError, setHasError] = useState<boolean>(false);
+  const [selectedName, setSelectedName] = useState<nameOptionType>(null);
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    const savedPersonName = localStorage.getItem("personName");
-    if (savedPersonName) {
-      navigate("/add-goal", { replace: true, state: savedPersonName });
+    const getSelectedName = localStorage.getItem("selectedName");
+    if (getSelectedName) {
+      navigate("/add-goal", { replace: true, state: getSelectedName });
     }
   }, [navigate]);
 
-  const handleChange = (e: SelectChangeEvent<typeof personName>) => {
+  const handleChange = (nameOption: nameOptionType) => {
     setHasError(false);
-    setPersonName(e.target?.value);
+    setSelectedName(nameOption);
   };
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
-    if (!personName) {
+    // Validate form
+    if (!selectedName) {
       setHasError(true);
       return;
     }
 
-    localStorage.setItem("personName", personName);
-    navigate("/add-goal", { replace: true, state: personName });
+    localStorage.setItem("selectedName", JSON.stringify(selectedName));
+    navigate("/add-goal", { replace: true, state: selectedName });
   };
 
   return (
-    <div className="home center">
-      <form className="center name-form" onSubmit={handleSubmit}>
-        <FormControl sx={{ m: 1, width: 300 }} error={hasError}>
-          <InputLabel id="select-name">Who are you?</InputLabel>
-          <Select
-            labelId="select-name"
-            id="select"
-            value={personName}
-            onChange={handleChange}
-            input={<OutlinedInput label="Who are you?" />}
-            MenuProps={MenuProps}
-          >
-            {names.map((name) => (
-              <MenuItem key={name} value={name}>
-                {name}
-              </MenuItem>
-            ))}
-          </Select>
-          {hasError && <FormHelperText>Please select a name.</FormHelperText>}
-        </FormControl>
-        <Button
-          type="submit"
-          variant="contained"
-          endIcon={<SendIcon />}
-          sx={{ my: 2, width: 150 }}
-        >
-          Add Goal
-        </Button>
-      </form>
-    </div>
+    <Container className="home center">
+      <Card className="home-card">
+        <Card.Header>Meta Bot Client</Card.Header>
+        <Card.Body>
+          <Card.Title>Please select who are you!!</Card.Title>
+          <Form className="mt-4" onSubmit={handleSubmit}>
+            <Select
+              className="capitalize"
+              options={names}
+              onChange={handleChange}
+              placeholder="Select your name"
+            />
+            {hasError ? (
+              <p className="text-danger error-text ms-2 mt-1">Select a name</p>
+            ) : (
+              <></>
+            )}
+            <Button type="submit" variant="primary" className="my-3">
+              Let's Go
+            </Button>
+          </Form>
+        </Card.Body>
+      </Card>
+    </Container>
   );
 };
 
