@@ -1,3 +1,5 @@
+@import "bootstrap/dist/css/bootstrap.min.css";
+
 /* Utilities */
 .center {
   display: flex;
@@ -5,11 +7,19 @@
   align-items: center;
 }
 
+.capitalize {
+  text-transform: capitalize;
+}
+
+.error-text {
+  font-size: 0.9rem;
+}
+
 /* Home */
 .home {
   height: 100vh;
 }
 
-.name-form {
-  flex-direction: column;
+.home-card {
+  width: 50%;
 }
