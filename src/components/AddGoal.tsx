@@ -27,6 +27,7 @@ const AddGoal = () => {
   const [nextWeek, setNextWeek] = useState(
     new Date(new Date().setDate(currDate.getDate() + 6))
   );
+  const [goalList, setGoalList] = useState<string[]>([]);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -105,7 +106,7 @@ const AddGoal = () => {
                   </span>
                 </Form.Text>
               </Form.Group>
-              <GoalList />
+              <GoalList goalList={goalList} setGoalList={setGoalList} />
               <Button variant="primary" type="submit" className="mt-3">
                 Submit
               </Button>

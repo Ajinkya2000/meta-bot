@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
 // React Bootstrap
 import Form from "react-bootstrap/Form";
@@ -8,11 +8,16 @@ import Button from "react-bootstrap/Button";
 // Image
 import plusIcon from "../images/plus-solid.svg";
 
-export default function GoalList() {
-  const [goalList, setGoalList] = useState<string[]>([]);
+interface Props {
+  goalList: string[];
+  setGoalList: React.Dispatch<React.SetStateAction<string[]>>;
+}
+
+const GoalList: React.FC<Props> = ({ goalList, setGoalList }) => {
   const [value, setValue] = useState<string>("");
 
   const handleAddGoal = () => {
+    if (!value) return;
     setGoalList([...goalList, value]);
     setValue("");
   };
@@ -41,4 +46,6 @@ export default function GoalList() {
       ))}
     </div>
   );
-}
+};
+
+export default GoalList;
