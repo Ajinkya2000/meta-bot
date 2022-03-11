@@ -25,3 +25,8 @@
 .add-goal-card {
   width: max(400px, 50%);
 }
+
+/* Add Goal */
+.date-picker > * {
+  border: none;
+}

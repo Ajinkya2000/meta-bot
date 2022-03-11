@@ -2,6 +2,8 @@ import { FormEvent, useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 
+import DatePicker from "react-date-picker";
+
 // React Bootstrap
 import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
@@ -10,7 +12,7 @@ import Button from "react-bootstrap/Button";
 import ToastContainer from "react-bootstrap/ToastContainer";
 import Toast from "react-bootstrap/Toast";
 
-// Type
+// Types
 import { nameOptionType } from "../types/name-option-type";
 
 const AddGoal = () => {
@@ -20,6 +22,10 @@ const AddGoal = () => {
     type: "info",
     msg: "",
   });
+  const [currDate, setCurrDate] = useState(new Date());
+  const [nextWeek, setNextWeek] = useState(
+    new Date(new Date().setDate(currDate.getDate() + 6))
+  );
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -31,7 +37,11 @@ const AddGoal = () => {
     }
 
     setName(state.savedName);
-  }, [navigate, state]);
+  }, [navigate, state, name]);
+
+  useEffect(() => {
+    setNextWeek(new Date(new Date().setDate(currDate.getDate() + 6)));
+  }, [currDate]);
 
   const sendMessage = async (e: FormEvent) => {
     e.preventDefault();
@@ -61,26 +71,47 @@ const AddGoal = () => {
     <>
       <Container className="add-goal center">
         <Card className="add-goal-card">
-          <Form className="p-5" onSubmit={sendMessage}>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Email address</Form.Label>
-              <Form.Control type="email" placeholder="Enter email" />
-              <Form.Text className="text-muted">
-                We'll never share your email with anyone else.
-              </Form.Text>
-            </Form.Group>
+          {name && (
+            <Form className="p-5" onSubmit={sendMessage}>
+              <Form.Group className="mb-3" controlId="formBasicName">
+                <Form.Label>Name</Form.Label>
+                <Form.Control
+                  value={name.label}
+                  type="text"
+                  placeholder="Enter Name"
+                  disabled
+                  className="capitalize"
+                />
+              </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>Password</Form.Label>
-              <Form.Control type="password" placeholder="Password" />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicCheckbox">
-              <Form.Check type="checkbox" label="Check me out" />
-            </Form.Group>
-            <Button variant="primary" type="submit">
-              Submit
-            </Button>
-          </Form>
+              <Form.Group className="mb-3" controlId="formBasicDatePicker">
+                <Form.Label>Select Date</Form.Label>
+                <div>
+                  <DatePicker
+                    value={currDate}
+                    className="form-control date-picker"
+                    onChange={setCurrDate}
+                  />
+                </div>
+                <Form.Text className="text-muted">
+                  <p>Goal will be set from:</p>
+                  <span className="text-primary">
+                    {currDate.toLocaleDateString()}
+                  </span>{" "}
+                  to{" "}
+                  <span className="text-primary">
+                    {nextWeek.toLocaleDateString()}
+                  </span>
+                </Form.Text>
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                <Form.Check type="checkbox" label="Check me out" />
+              </Form.Group>
+              <Button variant="primary" type="submit">
+                Submit
+              </Button>
+            </Form>
+          )}
         </Card>
         {toastDetails.visible && (
           <ToastContainer position="bottom-end" className="m-4">
