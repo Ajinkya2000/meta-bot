@@ -1,8 +1,9 @@
 import { FormEvent, useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
-
 import DatePicker from "react-date-picker";
+
+import GoalList from "./GoalList";
 
 // React Bootstrap
 import Container from "react-bootstrap/Container";
@@ -57,8 +58,8 @@ const AddGoal = () => {
         setToastDetails({ ...toastDetails, visible: true, msg, type });
       }
     } catch (err: any) {
-      const msg = err.response.data.msg;
-      const type = err.response.data.type;
+      const msg = err.response.data.msg || "Something went wrong";
+      const type = err.response.data.type || "danger";
       setToastDetails({ ...toastDetails, visible: true, msg, type });
     }
   };
@@ -94,7 +95,7 @@ const AddGoal = () => {
                   />
                 </div>
                 <Form.Text className="text-muted">
-                  <p>Goal will be set from:</p>
+                  <p className="mt-2">Goal will be set from:</p>
                   <span className="text-primary">
                     {currDate.toLocaleDateString()}
                   </span>{" "}
@@ -104,10 +105,8 @@ const AddGoal = () => {
                   </span>
                 </Form.Text>
               </Form.Group>
-              <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                <Form.Check type="checkbox" label="Check me out" />
-              </Form.Group>
-              <Button variant="primary" type="submit">
+              <GoalList />
+              <Button variant="primary" type="submit" className="mt-3">
                 Submit
               </Button>
             </Form>

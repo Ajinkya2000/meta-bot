@@ -24,9 +24,20 @@
 .home-card,
 .add-goal-card {
   width: max(400px, 50%);
+  overflow: hidden;
 }
 
 /* Add Goal */
 .date-picker > * {
   border: none;
+}
+
+/* Goal List */
+.add-goal-form {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.add-icon > img {
+  height: 25px;
 }
