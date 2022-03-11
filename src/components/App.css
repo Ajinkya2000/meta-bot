@@ -16,10 +16,12 @@
 }
 
 /* Home */
-.home {
+.home,
+.add-goal {
   height: 100vh;
 }
 
-.home-card {
-  width: 50%;
+.home-card,
+.add-goal-card {
+  width: max(400px, 50%);
 }
