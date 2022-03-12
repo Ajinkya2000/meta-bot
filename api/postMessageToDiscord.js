@@ -35,3 +35,4 @@ export default async function handler(req, res) {
 
 // CREATE A METHOD TO DELETE ALL MESSAGES IN ALL CHANNELS
 // CLEAR FORM AFTER ADDING GOAL
+// ADD EMOJIS TO THE MESSAGE
