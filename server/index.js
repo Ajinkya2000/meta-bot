@@ -3,6 +3,9 @@ const morgan = require("morgan");
 const cors = require("cors");
 const path = require("path");
 
+// Add Bot
+require("./shoutout-bot");
+
 // Route
 const discordRoute = require("./discordRoute");
 
