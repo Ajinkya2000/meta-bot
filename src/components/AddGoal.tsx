@@ -29,6 +29,7 @@ const AddGoal = () => {
   );
   const [goalList, setGoalList] = useState<string[]>([]);
   const [showZeroGoalError, setShowZeroGoalError] = useState(false);
+  const [showSpinner, setShowSpinner] = useState(false);
 
   const navigate = useNavigate();
 
@@ -55,6 +56,8 @@ const AddGoal = () => {
       return;
     }
 
+    setShowSpinner(true);
+
     try {
       const res = await axios.post("/api/postMessageToDiscord", {
         name,
@@ -72,6 +75,8 @@ const AddGoal = () => {
       const msg = err.response.data.msg || "Something went wrong";
       const type = err.response.data.type || "danger";
       setToastDetails({ ...toastDetails, visible: true, msg, type });
+    } finally {
+      setShowSpinner(false);
     }
   };
 
@@ -128,8 +133,14 @@ const AddGoal = () => {
                 showZeroGoalError={showZeroGoalError}
                 setShowZeroGoalError={setShowZeroGoalError}
               />
-              <Button variant="primary" type="submit" className="mt-3">
+              <Button variant="primary" type="submit" className="mt-3 center">
                 Submit
+                {showSpinner && (
+                  <div
+                    className="spinner-border spinner-border-sm text-light ms-2"
+                    role="status"
+                  ></div>
+                )}
               </Button>
             </Form>
           )}
