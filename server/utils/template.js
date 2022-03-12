@@ -5,7 +5,7 @@ module.exports.goalTemplate = (templateData) => {
 
   return `__Goal for the week **[${startDateFormat.toLocaleDateString()} - ${endDateFormat.toLocaleDateString()}]**__
 > By **${name.label}**
-\`\`\`
+\`\`\`autohotkey
 ${goalList.map((goal, index) => index + 1 + ". " + goal).join("\n")}
 \`\`\`
 
