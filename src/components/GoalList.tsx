@@ -8,14 +8,10 @@ import Button from "react-bootstrap/Button";
 // Image
 import plusIcon from "../images/plus-solid.svg";
 
-interface Props {
-  goalList: string[];
-  setGoalList: React.Dispatch<React.SetStateAction<string[]>>;
-  showZeroGoalError: boolean;
-  setShowZeroGoalError: React.Dispatch<React.SetStateAction<boolean>>;
-}
+// Types
+import GoalListProps from "../types/goal-list";
 
-const GoalList: React.FC<Props> = ({
+const GoalList: React.FC<GoalListProps> = ({
   goalList,
   setGoalList,
   showZeroGoalError,

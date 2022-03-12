@@ -37,6 +37,7 @@ const AddGoal = () => {
   useEffect(() => {
     if (!state) {
       navigate("/", { replace: true });
+      return;
     }
 
     setName(state.savedName);
