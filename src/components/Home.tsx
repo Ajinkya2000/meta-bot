@@ -1,5 +1,6 @@
 import { useState, FormEvent, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Select from "react-select";
 
 // React Bootstrap
 import Container from "react-bootstrap/Container";
@@ -7,18 +8,10 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
-// React Select
-import Select from "react-select";
-
 // Types
 import { nameOptionType } from "../types/name-option-type";
 
-const names: nameOptionType[] = [
-  { value: "ajinkya", label: "ajinkya" },
-  { value: "sushant", label: "sushant" },
-  { value: "kashish", label: "kashish" },
-  { value: "garvita", label: "garvita" },
-];
+import names from "../utils/names";
 
 const Home = () => {
   const [hasError, setHasError] = useState<boolean>(false);

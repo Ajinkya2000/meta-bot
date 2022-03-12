@@ -28,3 +28,5 @@ export default async function handler(req, res) {
     return res.status(400).json({ msg: "Method not Fount" });
   }
 }
+
+// CREATE A METHOD TO DELETE ALL MESSAGES IN ALL CHANNELS
