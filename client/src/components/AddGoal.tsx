@@ -56,7 +56,7 @@ const AddGoal = () => {
     setShowSpinner(true);
 
     try {
-      const res = await axios.post("/api/postMessageToDiscord", {
+      const res = await axios.post("/api/send-message", {
         name,
         startDate: currDate,
         endDate: nextWeek,
