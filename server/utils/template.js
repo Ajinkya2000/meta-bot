@@ -8,5 +8,7 @@ module.exports.goalTemplate = (templateData) => {
 \`\`\`
 ${goalList.map((goal, index) => index + 1 + ". " + goal).join("\n")}
 \`\`\`
+
+
 `;
 };

@@ -1,6 +1,7 @@
 const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
+const webpush = require("web-push");
 const path = require("path");
 
 // Route
@@ -8,6 +9,12 @@ const discordRoute = require("./discordRoute");
 
 const app = express();
 app.use(express.static(path.join(__dirname, "../client/build")));
+
+webpush.setVapidDetails(
+  "http://meta-bot-discord.herokuapp.com",
+  process.env.PUBLIC_VAPID_KEY,
+  process.env.PRIVATE_VAPID_KEY
+);
 
 // Middlewares
 app.use(express.json());
