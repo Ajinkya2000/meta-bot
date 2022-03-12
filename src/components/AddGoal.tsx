@@ -25,9 +25,10 @@ const AddGoal = () => {
   });
   const [currDate, setCurrDate] = useState(new Date());
   const [nextWeek, setNextWeek] = useState(
-    new Date(new Date().setDate(currDate.getDate() + 6))
+    new Date(new Date().setDate(new Date().getDate() + 6))
   );
   const [goalList, setGoalList] = useState<string[]>([]);
+  const [showZeroGoalError, setShowZeroGoalError] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -42,11 +43,17 @@ const AddGoal = () => {
   }, [navigate, state, name]);
 
   useEffect(() => {
+    if (!currDate) return;
     setNextWeek(new Date(new Date().setDate(currDate.getDate() + 6)));
   }, [currDate]);
 
   const sendMessage = async (e: FormEvent) => {
     e.preventDefault();
+
+    if (!goalList.length) {
+      setShowZeroGoalError(true);
+      return;
+    }
 
     try {
       const res = await axios.post("/api/postMessageToDiscord", {
@@ -93,20 +100,31 @@ const AddGoal = () => {
                     value={currDate}
                     className="form-control date-picker"
                     onChange={setCurrDate}
+                    required
                   />
                 </div>
-                <Form.Text className="text-muted">
-                  <p className="mt-2">Goal will be set from:</p>
-                  <span className="text-primary">
-                    {currDate.toLocaleDateString()}
-                  </span>{" "}
-                  to{" "}
-                  <span className="text-primary">
-                    {nextWeek.toLocaleDateString()}
-                  </span>
-                </Form.Text>
+                {currDate && (
+                  <Form.Text className="text-muted">
+                    <p className="mt-2">Goal will be set from:</p>
+                    <span className="text-primary">
+                      {currDate.toLocaleDateString()}
+                    </span>{" "}
+                    to{" "}
+                    <span className="text-primary">
+                      {nextWeek.toLocaleDateString()}
+                    </span>
+                  </Form.Text>
+                )}
+                {!currDate && (
+                  <p className="text-danger">Please select a date</p>
+                )}
               </Form.Group>
-              <GoalList goalList={goalList} setGoalList={setGoalList} />
+              <GoalList
+                goalList={goalList}
+                setGoalList={setGoalList}
+                showZeroGoalError={showZeroGoalError}
+                setShowZeroGoalError={setShowZeroGoalError}
+              />
               <Button variant="primary" type="submit" className="mt-3">
                 Submit
               </Button>

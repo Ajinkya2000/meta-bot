@@ -11,14 +11,22 @@ import plusIcon from "../images/plus-solid.svg";
 interface Props {
   goalList: string[];
   setGoalList: React.Dispatch<React.SetStateAction<string[]>>;
+  showZeroGoalError: boolean;
+  setShowZeroGoalError: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const GoalList: React.FC<Props> = ({ goalList, setGoalList }) => {
+const GoalList: React.FC<Props> = ({
+  goalList,
+  setGoalList,
+  showZeroGoalError,
+  setShowZeroGoalError,
+}) => {
   const [value, setValue] = useState<string>("");
 
   const handleAddGoal = () => {
     if (!value) return;
     setGoalList([...goalList, value]);
+    setShowZeroGoalError(false);
     setValue("");
   };
 
@@ -26,11 +34,13 @@ const GoalList: React.FC<Props> = ({ goalList, setGoalList }) => {
     <div>
       <div className="add-goal-form center">
         <Form.Label>Enter your goal</Form.Label>
-        <Form.Group className="mb-3 d-flex" controlId="formBasicGoalList">
+        <Form.Group
+          className="d-flex add-goal-form-inner"
+          controlId="formBasicGoalList"
+        >
           <Form.Control
             type="text"
             placeholder="Add a Goal"
-            className="capitalize"
             value={value}
             onChange={(e) => setValue(e.target.value)}
           />
@@ -40,10 +50,13 @@ const GoalList: React.FC<Props> = ({ goalList, setGoalList }) => {
         </Form.Group>
       </div>
       {goalList.map((goal, index) => (
-        <Badge pill bg="dark" key={index} className="m-1 px-3 py-2">
+        <Badge pill bg="light" key={index} className="m-1 px-3 py-2 text-dark">
           {goal}
         </Badge>
       ))}
+      {showZeroGoalError && (
+        <p className="text-danger">Please add atleast 1 goal.</p>
+      )}
     </div>
   );
 };

@@ -24,7 +24,6 @@
 .home-card,
 .add-goal-card {
   width: max(400px, 50%);
-  overflow: hidden;
 }
 
 /* Add Goal */
@@ -32,10 +31,18 @@
   border: none;
 }
 
+.react-date-picker__inputGroup__input:invalid {
+  background: none;
+}
+
 /* Goal List */
 .add-goal-form {
   flex-direction: column;
   align-items: flex-start;
+}
+
+.add-goal-form-inner {
+  width: 100%;
 }
 
 .add-icon > img {
