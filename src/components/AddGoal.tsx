@@ -1,5 +1,5 @@
 import { FormEvent, useEffect, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import DatePicker from "react-date-picker";
 
@@ -31,17 +31,16 @@ const AddGoal = () => {
   const [showZeroGoalError, setShowZeroGoalError] = useState(false);
 
   const navigate = useNavigate();
-  const location = useLocation();
-  const state = location.state as { savedName: nameOptionType }; // This line tackles the `unknown` type of state in location object
 
   useEffect(() => {
-    if (!state) {
+    const savedName = localStorage.getItem("selectedName");
+    if (!savedName) {
       navigate("/", { replace: true });
       return;
     }
 
-    setName(state.savedName);
-  }, [navigate, state, name]);
+    setName(JSON.parse(savedName));
+  }, [navigate]);
 
   useEffect(() => {
     if (!currDate) return;

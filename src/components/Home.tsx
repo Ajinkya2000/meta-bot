@@ -29,8 +29,7 @@ const Home = () => {
   useEffect(() => {
     const getSelectedName = localStorage.getItem("selectedName");
     if (getSelectedName) {
-      const savedName = JSON.parse(getSelectedName);
-      navigate("/add-goal", { replace: true, state: { savedName } });
+      navigate("/add-goal", { replace: true });
     }
   }, [navigate]);
 
@@ -49,7 +48,7 @@ const Home = () => {
     }
 
     localStorage.setItem("selectedName", JSON.stringify(selectedName));
-    navigate("/add-goal", { replace: true, state: { selectedName } });
+    navigate("/add-goal", { replace: true });
   };
 
   return (
