@@ -1,18 +1,22 @@
 const axios = require("axios");
 
-const goalTemplate = `**Goal for the week [21st March, 2022 - 28th March, 2022]**
-> By Ajinkya
+const goalTemplate = (templateData) => {
+  const { name, startDate, endDate, goalList } = templateData;
+  const startDateFormat = new Date(startDate);
+  const endDateFormat = new Date(endDate);
+
+  return `**Goal for the week [${startDateFormat.toLocaleDateString()} - ${endDateFormat.toLocaleDateString()}]**
+> By ${name.label}
 \`\`\`
-1. Do this.
-2. Do that.
-3. Then do nothing.
+${goalList.map((goal, index) => index + 1 + ". " + goal).join("\n")}
 \`\`\`
 `;
+};
 
 export default async function handler(req, res) {
   if (req.method == "POST") {
     const response = await axios.post(process.env.DISCORD_WEBHOOK_URL, {
-      content: goalTemplate,
+      content: goalTemplate(req.body),
     });
 
     const checkSuccessfulStatusCode = parseInt(response.status) / 100;
@@ -30,3 +34,4 @@ export default async function handler(req, res) {
 }
 
 // CREATE A METHOD TO DELETE ALL MESSAGES IN ALL CHANNELS
+// CLEAR FORM AFTER ADDING GOAL

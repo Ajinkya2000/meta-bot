@@ -57,7 +57,10 @@ const AddGoal = () => {
 
     try {
       const res = await axios.post("/api/postMessageToDiscord", {
-        data: "data",
+        name,
+        startDate: currDate,
+        endDate: nextWeek,
+        goalList,
       });
 
       if (res.status === 201) {
