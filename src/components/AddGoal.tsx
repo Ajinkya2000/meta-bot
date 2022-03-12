@@ -85,84 +85,80 @@ const AddGoal = () => {
   };
 
   return (
-    <>
-      <Container className="add-goal center">
-        <Card className="add-goal-card">
-          {name && (
-            <Form className="p-5" onSubmit={sendMessage}>
-              <Form.Group className="mb-3" controlId="formBasicName">
-                <Form.Label>Name</Form.Label>
-                <Form.Control
-                  value={name.label}
-                  type="text"
-                  placeholder="Enter Name"
-                  disabled
-                  className="capitalize"
-                />
-              </Form.Group>
-
-              <Form.Group className="mb-3" controlId="formBasicDatePicker">
-                <Form.Label>Select Date</Form.Label>
-                <div>
-                  <DatePicker
-                    value={currDate}
-                    className="form-control date-picker"
-                    onChange={setCurrDate}
-                    required
-                  />
-                </div>
-                {currDate && (
-                  <Form.Text className="text-muted">
-                    <p className="mt-2">Goal will be set from:</p>
-                    <span className="text-primary">
-                      {currDate.toLocaleDateString()}
-                    </span>{" "}
-                    to{" "}
-                    <span className="text-primary">
-                      {nextWeek.toLocaleDateString()}
-                    </span>
-                  </Form.Text>
-                )}
-                {!currDate && (
-                  <p className="text-danger">Please select a date</p>
-                )}
-              </Form.Group>
-              <GoalList
-                goalList={goalList}
-                setGoalList={setGoalList}
-                showZeroGoalError={showZeroGoalError}
-                setShowZeroGoalError={setShowZeroGoalError}
+    <Container className="add-goal center">
+      <Card className="add-goal-card">
+        {name && (
+          <Form className="p-5" onSubmit={sendMessage}>
+            <Form.Group className="mb-3" controlId="formBasicName">
+              <Form.Label>Name</Form.Label>
+              <Form.Control
+                value={name.label}
+                type="text"
+                placeholder="Enter Name"
+                disabled
+                className="capitalize"
               />
-              <Button variant="primary" type="submit" className="mt-3 center">
-                Submit
-                {showSpinner && (
-                  <div
-                    className="spinner-border spinner-border-sm text-light ms-2"
-                    role="status"
-                  ></div>
-                )}
-              </Button>
-            </Form>
-          )}
-        </Card>
-        {toastDetails.visible && (
-          <ToastContainer position="bottom-end" className="m-4">
-            <Toast
-              onClose={handleToastClose}
-              show={true}
-              delay={5000}
-              bg={toastDetails.type}
-              autohide
-            >
-              <Toast.Header>
-                <strong className="me-auto">Status</strong>
-              </Toast.Header>
-              <Toast.Body className="text-white">{toastDetails.msg}</Toast.Body>
-            </Toast>
-          </ToastContainer>
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="formBasicDatePicker">
+              <Form.Label>Select Date</Form.Label>
+              <div>
+                <DatePicker
+                  value={currDate}
+                  className="form-control date-picker"
+                  onChange={setCurrDate}
+                  required
+                />
+              </div>
+              {currDate && (
+                <Form.Text className="text-muted">
+                  <p className="mt-2">Goal will be set from:</p>
+                  <span className="text-primary">
+                    {currDate.toLocaleDateString()}
+                  </span>{" "}
+                  to{" "}
+                  <span className="text-primary">
+                    {nextWeek.toLocaleDateString()}
+                  </span>
+                </Form.Text>
+              )}
+              {!currDate && <p className="text-danger">Please select a date</p>}
+            </Form.Group>
+            <GoalList
+              goalList={goalList}
+              setGoalList={setGoalList}
+              showZeroGoalError={showZeroGoalError}
+              setShowZeroGoalError={setShowZeroGoalError}
+            />
+            <Button variant="primary" type="submit" className="mt-3 center">
+              Submit
+              {showSpinner && (
+                <div
+                  className="spinner-border spinner-border-sm text-light ms-2"
+                  role="status"
+                ></div>
+              )}
+            </Button>
+          </Form>
         )}
-      </Container>
-    </>
+      </Card>
+      {toastDetails.visible && (
+        <ToastContainer position="bottom-end" className="m-4">
+          <Toast
+            onClose={handleToastClose}
+            show={true}
+            delay={5000}
+            bg={toastDetails.type}
+            autohide
+          >
+            <Toast.Header>
+              <strong className="me-auto">Status</strong>
+            </Toast.Header>
+            <Toast.Body className="text-white">{toastDetails.msg}</Toast.Body>
+          </Toast>
+        </ToastContainer>
+      )}
+    </Container>
   );
 };
 
