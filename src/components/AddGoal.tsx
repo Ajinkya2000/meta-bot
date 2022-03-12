@@ -2,9 +2,7 @@ import { FormEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import DatePicker from "react-date-picker";
-
 import GoalList from "./GoalList";
-
 // React Bootstrap
 import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
@@ -12,7 +10,6 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import ToastContainer from "react-bootstrap/ToastContainer";
 import Toast from "react-bootstrap/Toast";
-
 // Types
 import { nameOptionType } from "../types/name-option-type";
 
