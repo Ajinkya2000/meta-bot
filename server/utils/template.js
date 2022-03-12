@@ -21,3 +21,15 @@ ${goalList.map((goal, index) => index + 1 + ". " + goal).join("\n")}
 
 `;
 };
+
+module.exports.shoutOutTemplate = (templateData) => {
+  const { discordUserId, messageContent } = templateData;
+
+  if (messageContent) {
+    return `Well done <@${discordUserId}> for completing this goal ✅
+>>> ${messageContent}
+    `;
+  } else {
+    return `Well done <@${discordUserId}> for completing your goal ✅`;
+  }
+};
