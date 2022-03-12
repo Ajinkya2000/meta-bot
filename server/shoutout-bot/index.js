@@ -3,8 +3,8 @@ const { Client, Intents } = require("discord.js");
 const { shoutOutTemplate } = require("../utils/template");
 
 const TOKEN = process.env.DISCORD_SHOUTOUT_BOT_TOKEN;
-const GOALS_CHANNEL_ID = "950129333924691988";
-const SHOUTOUT_CHANNEL_ID = "952102402494988328";
+const GOALS_CHANNEL_ID = process.env.GOALS_CHANNEL_ID;
+const SHOUTOUT_CHANNEL_ID = process.env.SHOUOUT_CHANNEL_ID;
 
 const getUserIdfromMessage = (messageContent) => {
   return messageContent.substring(
