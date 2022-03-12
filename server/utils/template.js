@@ -3,7 +3,7 @@ module.exports.goalTemplate = (templateData) => {
   const startDateFormat = new Date(startDate);
   const endDateFormat = new Date(endDate);
 
-  return `Goal for the week **[${startDateFormat.toLocaleDateString()} - ${endDateFormat.toLocaleDateString()}]**
+  return `__Goal for the week **[${startDateFormat.toLocaleDateString()} - ${endDateFormat.toLocaleDateString()}]__**
 > By **${name.label}**
 \`\`\`
 ${goalList.map((goal, index) => index + 1 + ". " + goal).join("\n")}
