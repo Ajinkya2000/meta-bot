@@ -1,4 +1,5 @@
 const mapDiscordUsername = {
+  Pratik: { discordId: "1012280186873597982" },
   Ajinkya: { discordId: "618792286364368916" },
   Sushant: { discordId: "629297564109373450" },
   Garvita: { discordId: "737303396004003871" },
