@@ -7,10 +7,15 @@ const GOALS_CHANNEL_ID = "950129333924691988";
 const SHOUTOUT_CHANNEL_ID = "952102402494988328";
 
 const getUserIdfromMessage = (messageContent) => {
-  return messageContent.substring(
-    messageContent.indexOf("<@") + 2,
-    messageContent.indexOf("<@") + 20
-  );
+  const startIndex = messageContent.indexOf("<@");
+  let userId = "";
+  for (let index = startIndex; index <= startIndex + 21; index++) {
+    if (isNaN(Number(messageContent[index])) === false) {
+      userId += messageContent[index];
+    }
+  }
+
+  return userId;
 };
 
 (() => {
